@@ -1,0 +1,395 @@
+////////////////////////////////INFO////////////////////////////////////////
+// This library was created by Kim Doberstein
+
+// Version 1.0
+// Date: 11/09/2009
+//
+// This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
+// In addition, it will alternate the table row background colors (zebra stripping).
+
+// NOTE: These functions require the jQuery library.  It was created using version 1.2.6
+// You can downloaded jQuery at: http://jquery.com/
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////// CSS CLASSES RECOGNIZED BY FUNCTIONS ////////////////
+// .sortHeaderRow - If the easySortTable function isn't setting the sort links in the correct row, apply this class to the table row that has the column headers.
+
+// .sortHeader - If you don't want the entire contents of the header cell to be the link, apply this class to the text you want to be the header link.
+
+// .noSort - If you don't want a column to be sortable, apply this class to the header cell.
+
+// .sortedAscending - If a column is already sorted ascending when the page loads, apply this class to the header cell of the sorted column.
+
+// .sortedDescending - If a column is already sorted descending when the page loads, apply this class to the header cell of the sorted column.
+
+// .sortKey - If you don't want the entire contents of the data cell to be used when sorting, apply this class around the content you want used in a data cell to sort.
+
+// classes starting with "dataType_" - If the sortTableColumn function isn't sorting a column correctly, add a class to that header cell that has the same name as the data type function. See below for internal data types.
+
+// classes starting with "sort_"- If the sortTableColumn function isn't sorting a column correctly, add a class to that header cell that has the same name as the sort function.
+
+// classes strting with "secondarySort_" - Determines if a secondary sort should be done when the column this applied is sorted.  Must be in the order of secondarySort_index_direction_index_direction etc.  Direciton must be either 1 (ascending), -1(descending), or 0 (same direction as this column.
+
+
+// NOTE: Only use the classes above only when needed.  They are not required.
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+////////////////////////////// CSS CLASSES APPLIED BY FUNCTIONS ////////////////////////////
+// .even - Class applied to the even table rows
+
+// .odd - Class applied to the odd table rows
+
+// .sortedCol - Class applied to the table cells of the column that was sorted on.
+
+// .sortHeader - Class applied to all header links
+
+// .sortArrow - Class applied to the span tag located inside the header link that contains the arrow.
+
+// .sortDirectionAsc - Class applied  to the header link when the column was last sorted ascending.
+
+// .sortDirectionDes - Class applied  to the header link when the column was last sorted descending.
+
+// "Sort this column" - Title attribute added to the header links.
+
+// "&nbsp;&darr;" - HTML shown when a column is sorted ascending -  a down arrow
+
+// &nbsp;&uarr; - HTML shown when a column is sorted descending -  an up arrow
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+////////////////////////////////// INCLUDED DATA TYPES //////////////////////////
+//
+// dataType_alpha - Used to sort text
+// dataType_numeric - Used to help sort numbers including currency (US)
+// dataType_date - Used to help sort dates (mm/dd/yyyy only)
+////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////////// DESCRIPTION ON HOW THIS LIBRARY WORKS /////////////
+// When the easySortTable method is applied to a table, it finds the header row, then turns the content
+// of each of the header cells into a link.  When the user clicks on a header link, that column is sorted 
+// by calling the sortTableColumn function.
+
+// When a column is sorted, the library first determins what type of data the column contains.  
+// Then it goes through each row, calls the corresponding dataType function to prepare the data for sorting.
+// For example, the dataType_numeric function removes any charicter that isn't number like "jQuery" and ",".
+// The text returned from the dataType function is then stored in the expando "sortKey" attached to the row.
+
+// Before the data is actually sorted, the sort direction is determined by looking at the class set to the header link
+// the last time the column was sorted.  If the column hasn't been sorted, then ascending is chosen.
+
+// Once a dirction has been determined, a function used to actually sort the rows is determined.  In most cases,
+// a build-in generic sort function (sort_default) is used.
+// The sort function sorts the rows by using the data stored in the "sortKey" expando.
+
+// Once the rows are sorted, any expandos set during the sort process are destroyed (by setting them to null).
+// The class indicating the sort dirction is added to the header link, the approrate arrow is displayed, and 
+// the table rows are zebra stripped.  The "sortedCol" class is added to the cell in the column that was sorted.
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+///////////////////////////////// HOW TO USE THESE FUNCTIONS /////////////////////////
+// In most cases, you call the easySortTable function to a table object using jQuery "daisy-chaining"
+
+// Example : jQuery('#myTable').easySortTable();
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+////////////////////////////////// GENERAL TIPS FOR SETTING UP YOUR TABLE ///////////
+// * Don't use multiple tbody tags.  A tbody tag isn't required for this library to work.
+
+// * Use thead and tfoot tags to indicate header and footer rows.  If a thead tag isn't set, the library will
+// automatically add one around the header row.
+
+// * Only use th tags in the header row(s).
+
+// * Don't use colspan or rowspan.
+
+// * If you want zebra stripping, set .even and .odd classes to have different background colors.
+
+// * This script assumes that no columns have been added via DOM scripting.  (New rows are OK).
+
+// * If at all possible, do not use &nbsp; in the data cells. This can lead to strange results - specially in IE
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////// SETTING UP YOUR HEADER ROW //////////////////////
+// By defaut the library determins the header row with the following logic (in this order):
+//   * If a row has a "sortHeaderRow" class
+//   * If there is a thead tag, use the last row in the thead section
+//   * The first row in the table
+
+// Each header row should contain some content (text or images) that the user can click on.
+
+// By default, the entire content of the header cell is turned into a link the user clicks on to
+// sort that column.  If you want only a protion of the content to be  turned into the sort link, 
+// then apply the "sortHeader" class.
+// Example:
+//   ... <th><span class="sortHeader">This will be the sort link</span>  This will not</th>...
+
+// By default the library will determine the type of data in each of the columns.  You can force
+// the script to use a certain dataType by adding that class to the header cell.
+// Example:
+//  ...<th class="dataType_date">Start Date</th>...
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////// SETTING UP YOUR DATA CELLS ////////////////////////
+// By default, the library will use the entire contents of a data cell to sort.  
+// Leading spaces and images are ignored.
+
+// If you want to specify the exact content you want to sort, add the "sortKey" class
+// to that content.
+// Example:
+// ...<td> First Name <span class="sortKey">Last Name</span></td>...
+// This column will be sorted by last name instead of first.
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+//////////////////////////////// SETTING UP AN EXTERNAL DATA TYPE ////////////////////
+// There are only limited dataTypes stored in this library.  You can create and call
+// your own external data types.
+
+// For example, let say you want to create a rating data types.
+
+// First you create a function with a name that MUST start with "dataType".  This
+// function MUST have a jQuery object for the table cell as its only attribute.  
+// The function MUST return data that will be used for sorting.
+
+// function dataType_rating(jQuerycell){
+//		if(jQuerycell.text()=="good") return 2;
+//		if(jQuerycell.text()=="ok") return 1;		
+//		if(jQuerycell.text()=="bad") return 0;	
+// }
+
+
+// When the rating column is sorted, it will sort on the numbers returned by the dataType_rating function.
+
+// To insure that this dataType function is used, apply the class with the same name as the dataType function
+// to the header cell.
+
+// ...<th class="dataType_rating">Rating</th>
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+//////////////////////////////// SETTING UP AN EXTERNAL SORT FUNCTION //////////////////
+// While not normally needed, you may wish to create your own sort function that will be called
+// by javacript's sort function.
+
+// For example, if two items have the same value, you want to compare the content of the first cell in the row.
+// You must create a function with a name that MUST start with "sort_".  This function MUST have two attirbutes,
+// two rows being compared.  This function MUST return one of the following: 1,0,-1. 
+
+//function sort_useFirstCell(a,b){
+//	for(var i=0;i<a.sortKey.length;i++){
+//		if (a.sortKey[i] > b.sortKey[i])return a.sortDirection[i];
+//		if (a.sortKey[i] < b.sortKey[i])return -a.sortDirection[i];
+//	}
+//	return 0;
+//	}
+
+// To insure that this sort function is used, apply the class with the same name as the sort function
+// to the header cell.
+
+// ...<th class="sort_useFirstCell">Special Col</th>
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+///////////////////////////////// SORTING A TABLE VIA THE CODE //////////////////////////
+// You can sort a table by calling the sortTable Column 
+//  jQuery(mytable).sortTableColumn(index,direction,sortKeyFunction,sortFunction)
+// Where:
+//		index is the index of the column (left most column=0)
+//		direction is the sort direction (1 for ascending and -1 for descending)
+//		sortKeyFunction is the reference to a sortKey function (not required)
+//		sortFunction is the referene to a sort function (not required)
+
+// If wish to do a multi-column sort, call the sortTableColumn method like this:
+//	jQuery(myTtable).sortTableColumn([[index,direction,sortKeyFunction],[index,direction,sortKeyFunction]])
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////////// SETTING A SECONDARY SORT VIA CSS //////////
+// If you want to do a multi=column sort, you can do this via a css class.  For example,
+// let's say you have a simple table starting like this:
+
+// <table>
+//	<tr>
+//		<th>Id Number</th>
+//		<th>First Name</th>
+//		<th>Last Name</th>
+//	...
+
+// When the user sorts the last name column, you want a secondary ascending sort on first name and ascending on id number.
+
+// On the last name column, you add this class:
+//	<th class="secondarySort_1_1_0_1">Last Name</th>
+
+// The secondary sort class is always in this format:
+// 	secondarySort_index_direction_index_direction  etc
+
+// You can have as many secondary columns as needed and direction is always required.  Direction must be one of the 
+// following values: 1 for ascending, -1 for descending, or 0 to have the same sort direction as the primary column.
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////////////// SETTING A SECONDARY SORT VIA JAVASCRIPT //////////
+// There are two ways to add a secondary sort via Javascript
+
+// Let's assume the table starts like this:
+// <table>
+//	<tr>
+//		<th id="emplId">Id Number</th>
+//		<th id="fName">First Name</th>
+//		<th id="lName">Last Name</th>
+//	...
+
+// Let's set a secondary sort when the last name column is sorted.  We would call the following
+// method:
+
+//  Thet setSecondarySort method must be attached to a column and takes the following arguments:
+// .setSecondarySort(columnObj,direction,columnObj,direction)
+
+// You can add as many columns as you need and direction is NOT required.
+
+
+// The second method of adding a secondary sort is by using the secondary column indexes using this method
+
+// primaryColumnObject.setSecondarySortByIndex(columnIndex,direction,columnIndex)
+// Again, you can add as many columns as you need and the direction IS required.
+
+// Both methods, just add the proper class to primary column and do not instigate a column sort.
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////// HOW TO ADD A DATA TYPE TO THIS LIBRARY //////////
+// First, you need to add a function inside the sortTableColumn function. See the
+// dataType_alpha as an example.  The purpose of a dataType function is to take
+// the data from a data cell and format so it can be sorted properly.  
+
+// The sortTableColumn automatically determines what type of dataType function should
+// be used based on the contents of a data cell.  You would need to write the regular
+// expression (or other logic) to deterine if the new dataType function should be used
+// based on the contents of a table cell.  See the cellText.match if statments inside
+// the sortTableColumn function.
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+///////////////////////////////// HOW TO ADD A SORT FUNCTION TO THIS LIBRARY ////////////////////////
+// First, you need to add a function inside the sortTableColumn function. See the
+// sort_default as an example.  The purpose of a sort function is to compare two values
+// and return 1,0,-1.  This function will be passed to javascript's sort method.
+
+// The sortTableColumn automatically determines what type of sort function should
+// be used.   Look inside the last if(sortFunction=="") statement inside the sortTableColumn.
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////// KNOWN BUGS ////////////////////////
+/*
+		
+
+If there are multiple tbody or misplaced tbody tags - the sort creates a new set of rows.  For example, this code will cause the defect:
+
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Bonus</th>
+      <th> Extension</th>
+      <th>Start date</th>
+    </tr>
+    <tbody>
+    <tr>
+      <td>Bloggs, Fred</td>
+      <td>jQuery12.00</td>
+      <td>1353</td>
+      <td>08/18/2003</td>
+    </tr>
+    <tr>
+      <td>Fitz, Aaron</td>
+      <td>jQuery3.30</td>
+      <td>5554</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Turvey, Kevin</td>
+      <td>jQuery191.00</td>
+      <td>2342</td>
+      <td>02/05/1979</td>
+    </tr>
+    </tbody>
+</table>
+
+
+*/
+/////////////////////////////////////////////////////////////////////////////////////
+
+

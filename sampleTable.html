@@ -1,0 +1,611 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+<!--<script type="text/javascript" src="jquery.easySortTable.js"></script>-->
+
+<script type="text/javascript" src="jquery.easySortTable_min.js"></script>
+<style type="text/css">
+	.odd{background-color:#ccc;}
+	.sortedCol{background-color:#FFCCFF;}
+.hidden {display:none;}
+
+h2{ border-top:1px solid #999;
+margin-top:75px;
+
+}
+
+
+
+body{
+		font-family:Verdana, Geneva, sans-serif;
+		font-size:90%;
+		margin-left:20px;
+}
+
+table{
+		border-collapse:collapse;
+}
+
+th, td{
+	padding:5px;
+	border:1px solid #999;
+}
+
+
+</style>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	//$('table').each(function(){$(this).setSortTable(); });
+	$('table').easySortTable();
+});
+</script>
+</head>
+
+<body>
+<h1>Examples for the jquery.easySortTable.js file</h1>
+
+<p>You call the easySortTable method to a table object using jQuery &quot;daisy-chaining - for example : $('#myTable').easySortTable();</p>
+<p> Because I wanted to apply the easySortTable to every table on this page, the following code was add to the head of the page:<br />
+</p>
+<pre>&lt;script type=&quot;text/javascript&quot;&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(document).ready(function(){
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('table').each(&nbsp;function(){$(this).easySortTable(); });
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+  &lt;/script&gt;</pre>
+<!-- *************************************************************************************************************** -->
+<!-- *************************************************************************************************************** -->
+<!-- *************************************************************************************************************** -->
+
+<h2> Example 1 - Custom Header Row</h2>
+<table>
+<thead>
+   <tr class="sortHeaderRow">
+    <th>Name</th>
+    <th>Bonus</th>
+    <th> Extension</th>
+    <th>Start date</th>
+  </tr>
+  <tr>
+    <th colspan="4">Current Employees Below</th>
+    </tr>
+
+  </thead>
+  <tbody>
+  <tr>
+    <td>Bloggs, Fred</td>
+    <td>$12.00</td>
+    <td>1353</td>
+    <td>08/18/2003</td>
+  </tr>
+  <tr>
+    <td>Turvey, Kevin</td>
+    <td>$191.00</td>
+    <td>&nbsp;&nbsp;&nbsp;2342</td>
+    <td>&nbsp;&nbsp;02/05/1979</td>
+  </tr>
+
+  <tr>
+    <td>Fitz, Aaron</td>
+    <td>$3.30</td>
+    <td>5554</td>
+    <td>&nbsp;</td>
+  </tr>
+  </tbody>
+</table>
+<p>
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  
+  
+If the easySortTable is not applying the header links to the proper row, you can define the exact row you want to contain the header links. The easiest way of doing this is by wrapping the single header row in a &lt;thead&gt; tag. If that doesn't work, apply the &quot;sortHeader&quot; class to the row you want to contain the links.</p>
+<p>For example, this is the html for the above table:</p>
+<pre>&lt;table&gt;<br />	&lt;thead&gt;
+		&lt;tr class=&quot;sortHeaderRow&quot;&gt;
+			&lt;th&gt;Name&lt;/th&gt;
+			&lt;th&gt;Bonus&lt;/th&gt;<br />			&lt;th&gt; Extension&lt;/th&gt;<br />			&lt;th&gt;Start date&lt;/th&gt;<br />		&lt;/tr&gt;<br />		&lt;tr&gt;<br />			&lt;th colspan=&quot;4&quot;&gt;Current Employees Below&lt;/th&gt;<br />		&lt;/tr&gt;</p>	
+	&lt;/thead&gt;
+... (table continues)
+</pre>
+<h2>Example 2 - Custom Header Link</h2>
+
+<table>
+<thead>
+  <tr>
+    <th colspan="4">Current Employees Below</th>
+  </tr>
+   <tr>
+    <th><span class="sortHeader">Name</span> This is not part of the link</th>
+    <th>Bonus</th>
+    <th> Extension</th>
+    <th class="noSort">Start date (don't sort by this)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Bloggs, Fred</td>
+    <td>$12.00</td>
+    <td>1353</td>
+    <td>08/18/2003</td>
+  </tr>
+  <tr>
+    <td>Turvey, Kevin</td>
+    <td>$191.00</td>
+    <td>&nbsp;&nbsp;&nbsp;2342</td>
+    <td>&nbsp;&nbsp;02/05/1979</td>
+  </tr>
+
+  <tr>
+    <td>Fitz, Aaron</td>
+    <td>$3.30</td>
+    <td>5554</td>
+    <td>&nbsp;</td>
+  </tr>
+  </tbody>
+</table>
+
+
+<p>
+If you don't want the entire text of a table cell a link, you can define the exact text should be a header link by wrapping the text to be the link in a &quot;sortHeader&quot; class.</p>
+<p>If you don't want a column to have a sort link, you can add the &quot;noSort&quot; class to the table cell.</p>
+<p>For example, this is the html for the above table:</p>
+<pre>&lt;table&gt;<br />&lt;thead&gt;<br />  &lt;tr&gt;<br />    &lt;th colspan=&quot;4&quot;&gt;Current Employees Below&lt;/th&gt;<br />  &lt;/tr&gt;<br />   &lt;tr&gt;<br />    &lt;th&gt;&lt;span class=&quot;sortHeader&quot;&gt;Name&lt;/span&gt; This is not part of the link&lt;/th&gt;<br />    &lt;th&gt;Bonus&lt;/th&gt;<br />    &lt;th&gt; Extension&lt;/th&gt;<br />    &lt;th class=&quot;noSort&quot;&gt;Start date (don't sort by this)&lt;/th&gt;<br />  &lt;/tr&gt;<br />  &lt;/thead&gt;
+... (table continues)</pre>
+
+
+
+
+
+
+
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+
+<h2>Example 3 - Already sorted row</h2>
+<table>
+    <tr>
+    
+      <th class="sortedAscending">Name</th>
+      <th>Bonus</th>
+      <th> Extension</th>
+      <th>Start date</th>
+    </tr>
+    <tr>
+      <td>Bloggs, Fred</td>
+      <td>$12.00</td>
+      <td>1353</td>
+      <td>08/18/2003</td>
+    </tr>
+    <tr>
+      <td>Fitz, Aaron</td>
+      <td>$3.30</td>
+      <td>5554</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Turvey, Kevin</td>
+      <td>$191.00</td>
+      <td>2342</td>
+      <td>02/05/1979</td>
+    </tr>
+</table>
+
+
+<p>If a column is already sorted when the the page loads, the &quot;sortedAscending&quot; or &quot;sortedDescending&quot; classes can be applied to the table cell. This automatically displays the correct arrow in the header link.</p>
+<p>For example, this is the html for the above table:</p>
+<pre>&lt;table&gt;
+	&lt;tr&gt;<br />		&lt;th class=&quot;sortedAscending&quot;&gt;Name&lt;/th&gt;
+		&lt;th&gt;Bonus&lt;/th&gt;<br />		&lt;th&gt; Extension&lt;/th&gt;<br />		&lt;th&gt;Start date&lt;/th&gt;<br />	&lt;/tr&gt;<br />... (table continues)</pre>
+
+
+
+
+
+
+
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+
+
+<h2>Example 4 - Use of Special Sort "Key"</h2>
+<table>
+    <tr>
+      <th>Name (Sort by Last Name)</th>
+      <th>Bonus</th>
+      <th> Extension</th>
+      <th>Start date</th>
+    </tr>
+    <tr>
+      <td>Fred <span class="sortKey">Bloggs</span></td>
+      <td>$12.00</td>
+      <td>1353</td>
+      <td>08/18/2003</td>
+    </tr>
+    <tr>
+      <td>Aaron <span class="sortKey">Fitz</span></td>
+      <td>$3.30</td>
+      <td>5554</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Kevin <span class="sortKey">Turvey</span></td>
+      <td>$191.00</td>
+      <td>2342</td>
+      <td>02/05/1979</td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+
+
+<p>By default this library uses the entire contents of a table cell to do the sorting. If you want to define what is used, wrap the text in the &quot;sortKey&quot; class. For example, in the above table, the last name is wrapped in the &quot;sortKey&quot; class, so the script uses that text to sort.</p>
+<p>
+
+  
+For example, this is the html for the above table:</p>
+<pre>
+(table starts) ...
+	&lt;tr&gt;<br />      &lt;td&gt;Fred &lt;span class=&quot;sortKey&quot;&gt;Bloggs&lt;/span&gt;&lt;/td&gt;<br />      &lt;td&gt;$12.00&lt;/td&gt;<br />      &lt;td&gt;1353&lt;/td&gt;<br />      &lt;td&gt;08/18/2003&lt;/td&gt;
+	&lt;/tr&gt;<br />... (table continues)</pre>
+    
+    
+    
+    
+    
+    
+    
+    
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->    
+    
+<h2>Example 5 - Use of Custom Data Type</h2>
+<table>
+    <tr>
+      <td>Ice Cream Flavor </td>
+      <td class="dataType_rating">Rating</td>
+  </tr>
+    <tr>
+      <td>Vanilla</td>
+      <td>Good</td>
+    </tr>
+    <tr>
+      <td>Chocolate</td>
+      <td>Average</td>
+    </tr>
+    <tr>
+      <td>Strawberry</td>
+      <td>Poor</td>
+    </tr>
+    <tr>
+      <td>Rocky Road </td>
+      <td>Average</td>
+    </tr>
+    <tr>
+      <td>Rum Raisin </td>
+      <td>Poor</td>
+    </tr>
+    <tr>
+      <td>Mint Chocolate Chip </td>
+      <td>Good</td>
+    </tr>
+</table>
+<p>By default, this library tries to figure out what type of data is contained in a column. If a column doesn't seem to be sorting correctly, you may need to manually define the type of data in that column.  Currently there are three built-in data types: </p>
+<ul>
+  <li>dataType_alpha - Text</li>
+  <li>dataType_numeric - Numbers including currency (US)</li>
+  <li>dataType_date - Dates (mm/dd/yyyy only)</li>
+</ul>
+<p>To manually apply a data type, add it as a class to the header cell.</p>
+<p>If needed, you can define your own data types. For example, in the rating column in the above table, I want the following for sorting purposes:</p>
+<ul>
+  <li>Poor to equal 0</li>
+  <li>Average to equal 1</li>
+  <li>Good to equal 2</li>
+</ul>
+<p>To do this, I need to create a custom function. This function name must start in &quot;dataType_&quot; , have the jQuery object for the cell as the attribute, and return a value. For example the following function was created for the Rating column:</p>
+<pre>
+ function dataType_rating($cell){
+		if($cell.text()=="Good") return 2;
+		if($cell.text()=="Average") return 1;		
+		if($cell.text()=="Poor") return 0;	
+ }
+</pre>
+<p>For example, this is the html for the above table:</p>
+
+
+<pre>&lt;table&gt;<br />    &lt;tr&gt;<br />      &lt;td class=&quot;dataType_alpha&quot;&gt;Ice Cream Flavor &lt;/td&gt;<br />      &lt;td class=&quot;dataType_rating&quot;&gt;Rating&lt;/td&gt;<br />  &lt;/tr&gt;<br />... (table continues)
+</pre>
+
+<script type="application/javascript">
+ function dataType_rating($cell){
+		if($cell.text()=="Good") return 2;
+		if($cell.text()=="Average") return 1;		
+		if($cell.text()=="Poor") return 0;	
+ }
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+
+<h2>Example 6 - Set Up Secondary Sort via CSS</h2>
+<p> When a user clicks on the flavor heading, the table  will be sorted by flavor and then rating (ascending).</p>
+
+<table id="tester">
+    <tr>
+      <td>Ice Cream Flavor </td> 
+      <td class="dataType_rating secondarySort_0_1">Rating</td>
+      <!-- dataType_rating -->
+    </tr>
+    <tr>
+      <td>Vanilla</td>
+      <td>Good</td>
+    </tr>
+    <tr>
+      <td>Chocolate</td>
+      <td>Average</td>
+    </tr>
+    <tr>
+      <td>Strawberry</td>
+      <td>Poor</td>
+    </tr>
+    <tr>
+      <td>Rocky Road </td>
+      <td>Average</td>
+    </tr>
+    <tr>
+      <td>Rum Raisin </td>
+      <td>Poor</td>
+    </tr>
+    <tr>
+      <td>Mint Chocolate Chip </td>
+      <td>Good</td>
+    </tr>
+</table>
+
+
+<p>
+In many instances, you want to do a multi-column sort. For example, when user clicks on the &quot;Rating&quot; heading, the rows are sorted first by rating and then by flavor. Flavor is always sorted ascending. You can set a &quot;secondarySort&quot; class to the header cell. </p>
+<p>The secondary sort class is always in this format: </p>
+<ul>
+  <li>secondarySort_index_direction_index_direction (etc)</li>
+</ul>
+<p>You can have as many secondary columns as needed. Index is the index of the header cell (or it's position from the left). The left most column has an index of 0. </p>
+<p>Direction is always required.  Direction must be one of the following values: </p>
+<ul>
+  <li>1 for ascending</li>
+  <li> -1 for descending</li>
+  <li> 0 to have the same sort direction as the primary column (flip between ascending and descending).</li>
+</ul>
+<p>For example, this is the html for the above table:</p>
+<pre>&lt;table&gt;<br />    &lt;tr&gt;<br />      &lt;td&gt;Ice Cream Flavor &lt;/td&gt;<br />      &lt;td class=&quot;dataType_rating  secondarySort_0_1&quot;&gt;Rating&lt;/td&gt;<br />  &lt;/tr&gt;<br />... (table continues)
+</pre>
+
+
+
+
+
+
+
+
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  <!-- *************************************************************************************************************** -->
+  
+<h2>Example 7 - Call Sort by Javascript</h2>
+<table id="classTable1">
+  <tbody>
+    <tr>
+      <td>Class</td>
+      <td>Date Offered (month)</td>
+    </tr>
+    <tr>
+      <td>HTML I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>HTML II </td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>Dreamweaver II </td>
+      <td>3 - March</td>
+    </tr>
+    <tr>
+      <td>Javascript I </td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Javascript II </td>
+      <td>3 - March</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="javascript:void(0)" onclick="$('#classTable1').sortTableColumn(0,1)">1. Sort Class (Always Ascending)</a></p>
+<p><a href="javascript:void(0)" onclick="$('#classTable1').sortTableColumn(0,0)">2. Sort Class (Switch between Ascending and Descending)</a></p>
+<p>You can sort a table via javascript by calling the sortTableColumn method applied to the table.</p>
+<ul>
+  <li>$(mytable).sortTableColumn(index,direction)</li>
+</ul>
+<p>Where index is the index of the column to be sorted (the left-most column has an index of 0) and direction is the direction of the sort. Direction must be one of the following values: </p>
+<ul>
+  <li>1 for ascending</li>
+  <li> -1 for descending</li>
+  <li> 0 flip between ascending and descending</li>
+</ul>
+<p>For example, this is the code for the two links above:</p>
+<pre>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable1').sortTableColumn(0,1)&quot;&gt;1. Sort Class (Always Ascending)&lt;/a&gt;
+<br />&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable1').sortTableColumn(0,0)&quot;&gt;2. Sort Class (Switch between Ascending and Descending)&lt;/a&gt;
+</pre>
+
+
+
+
+
+
+
+
+<!-- *************************************************************************************************************** -->
+<!-- *************************************************************************************************************** -->
+<!-- *************************************************************************************************************** -->
+
+<h2>Example 8 - Call Sort Multi Sort by Javascript</h2>
+<table id="classTable2">
+  <tbody>
+    <tr>
+      <td>Class</td>
+      <td>Date Offered (month)</td>
+    </tr>
+    <tr>
+      <td>HTML I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>HTML I</td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>3 - March</td>
+    </tr>
+    <tr>
+      <td>Javascript I </td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Javascript I</td>
+      <td>3 - March</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="javascript:void(0)" onclick="$('#classTable2').sortTableColumn([[1],[0,1]])">1. Sort By Date and then by class ascending</a></p>
+<p>You can also use the sortTableColumn to do multi column sorting.  
+  
+  To do so, call tthe sortTableColumn 
+  this way:
+</p>
+<ul>
+  <li>$(mytable).sortTableColumn([[index,direction],[index,direction]])</li>
+</ul>
+<p>You can set as many columns as needed.Index is the index of the column  (the left-most column has an index of 0) and direction is the direction of the sort. Direction must be one of the following values: </p>
+<ul>
+  <li>1 for ascending</li>
+  <li> -1 for descending</li>
+  <li> 0 flip between ascending and descending</li>
+</ul>
+<p>For example, this is the code for the  link above:</p>
+<pre>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable2').sortTableColumn([[1],[0,1]])&quot;&gt;1. Sort By Date and then by class ascending&lt;/a&gt;</pre>
+
+
+
+
+
+
+
+
+    <!-- *************************************************************************************************************** -->
+    <!-- *************************************************************************************************************** -->
+    <!-- *************************************************************************************************************** -->
+
+<h2>Example 9 - Call Sort Multi Sort by Javascript</h2>
+<table id="classTable3">
+  <tbody>
+    <tr>
+      <td id="classTable3-ClassColumn">Class</td>
+      <td id="classTable3-DateColumn">Date Offered (month)</td>
+    </tr>
+    <tr>
+      <td>HTML I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>HTML I</td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>3 - March</td>
+    </tr>
+    <tr>
+      <td>Javascript I </td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Javascript I</td>
+      <td>3 - March</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="javascript:void(0)" onclick="$('#classTable3-DateColumn').setSecondarySort($('#classTable3-ClassColumn'),1)">1. Set so when the user <strong>clicks on date header</strong> , the table is sorted by date and then by class (ascending)</a></p>
+<p><a href="javascript:void(0)" onclick="$('#classTable3-DateColumn').removeSecondarySort()">2. Remove secondary sort of class from the date header (set in link 1)</a></p>
+
+<p><a href="javascript:void(0)" onclick="$('#classTable3-ClassColumn').setSecondarySortByIndex(1,1)">3. Set so when the user <strong>clicks on the class header</strong>, the table is sorted by class and then by date (ascending)</a></p>
+<p><a href="javascript:void(0)" onclick="$('#classTable3-ClassColumn').removeSecondarySort()">4. Remove secondary sort from the class header (set in link 3)</a></p>
+
+
+
+<p>Althought is will probably only rarely be necessary, you can set a column to do secondary sort by using javascript. There are two methods to do this: &quot;setSecondarySort&quot; and &quot;setSecondarySortByIndex&quot;. Both are applied to the header cell you want to add the secondary sort to and both apply the css to the header cell described in example 6. </p>
+<p>The <strong>setSecondarySort</strong> method is in this format:</p>
+<ul>
+  <li>$(primaryTableCell).setSecondarySort(secondaryCellObj,direction,secondaryCellObj,direction);</li>
+</ul>
+<p>Where the secondaryCellObj is a jQuery pointer to the secondary column cell header.</p>
+<p>The <strong>setSecondarySortByIndex</strong> method is in this format:</p>
+<ul>
+  <li>$(primaryTableCell).setSecondarySortByIndex(index,direction,index,direction);</li>
+</ul>
+<p>Where the index is the index of the secondary sort column.</p>
+<p>&nbsp;</p>
+<p>For example, this is the html of the table above:</p>
+<pre>&lt;table&gt;<br />	&lt;tr&gt;<br />      &lt;td id=&quot;classTable3-ClassColumn&quot;&gt;Class&lt;/td&gt;<br />      &lt;td id=&quot;classTable3-DateColumn&quot;&gt;Date Offered (month)&lt;/td&gt;<br />    &lt;/tr&gt;
+... (table continues)
+
+</pre>
+<p>And this is the html for the links above:</p>
+<pre>
+</pre>
+<p>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable3-DateColumn').setSecondarySort($('#classTable3-ClassColumn'),1)&quot;&gt;1. Set so when the user &lt;strong&gt;clicks on date header&lt;/strong&gt; , the table is sorted by date and then by class (ascending)&lt;/a&gt;</p>
+<p><br />
+  &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable3-DateColumn').removeSecondarySort()&quot;&gt;2. Remove secondary sort of class from the date header (set in link 1)&lt;/a&gt;</p>
+<p>&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable3-ClassColumn').setSecondarySortByIndex(1,1)&quot;&gt;3. Set so when the user &lt;strong&gt;clicks on the class header&lt;/strong&gt;, the table is sorted by class and then by date (ascending)&lt;/a&gt;</p>
+<p><br />
+  &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;$('#classTable3-ClassColumn').removeSecondarySort()&quot;&gt;4. Remove secondary sort from the class header (set in link 3)&lt;/a&gt;</p>
+<pre>
+</pre>
+</body>
+</html>
