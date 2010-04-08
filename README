@@ -1,13 +1,13 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.0
-// Date: 11/09/2009
+// Version 1.1
+// Date: 4/8/2010
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
 
-// NOTE: These functions require the jQuery library.  It was created using version 1.2.6
+// NOTE: These functions require the jQuery library.  It was created using version 1.2.6 and tested using 1.4.2
 // You can downloaded jQuery at: http://jquery.com/
 ////////////////////////////////////////////////////////////////////////////
 
@@ -318,6 +318,30 @@
 // Again, you can add as many columns as you need and the direction IS required.
 
 // Both methods, just add the proper class to primary column and do not instigate a column sort.
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////// CALLBACK FUNCTION //////////
+//Once a column has been sorted, a callback function called "sortTableCallBack" automatically is called (if it exists). 
+//
+//In order to take advantage of this callback, just create a function with this name.  Custom naming of the callback
+//function is not available at this time.
+//
+//An object is passed as a parameter to the sortTableCallBack function in this format:
+//
+//	sortTableCallBack(obj)
+//		obj.direction;
+//		obj.index;
+//		
+//		direction=1  is ascending
+//		direction=-1 is descending
+//		
+//		index is the column index and  starts at 0
+
+// Currently this callback ignores secondary sorts and has not been tested on multi-column sorts.
+		
+		
 
 //////////////////////////////////////////////////////////////////////////////////
 

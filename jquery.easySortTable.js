@@ -2,13 +2,13 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.0
-// Date: 11/09/2009
+// Version 1.1
+// Date: 4/8/2010
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
 
-// NOTE: These functions require the jQuery library.  It was created using version 1.2.6
+// NOTE: These functions require the jQuery library.  It was created using version 1.2.6 and tested using 1.4.2
 // You can downloaded jQuery at: http://jquery.com/
 ////////////////////////////////////////////////////////////////////////////
 
@@ -42,20 +42,22 @@ var sortTableVars=new Object();
 	sortTableVars.sortedColumnClass='sortedCol';
 	sortTableVars.sortHeaderRowClass='sortHeaderRow'; //Class applied to tell the script what row is the header row.
 	sortTableVars.secondarySortClass="secondarySort_";//Start of the class to determine secondary column sorting
+	//sortTableVars.callBack=sortTableVarsCallback; //if(typeof formValidationOverRide!="undefined"&&formValidationOverRide(formPointer)) return formValidationOverRide(formPointer);
+	
+	
 
 
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
-
 
 
 
 
 jQuery.fn.alternateRowColors = function() {
 // This seems backwards because the first row is actually 0 (an even number)
-  jQuery('tbody tr:odd', this).removeClass('odd').addClass('even');
-  jQuery('tbody tr:even', this).removeClass('even').addClass('odd');
+  jQuery('tbody tr:visible:odd', this).removeClass('odd').addClass('even');
+  jQuery('tbody tr:visible:even', this).removeClass('even').addClass('odd');
   
   return this;
 };
@@ -65,6 +67,9 @@ jQuery.fn.alternateRowColors = function() {
 ////////////////////////////////////////////////////////////////////////////////////
 jQuery.fn.easySortTable=function(){
 	//this=table
+	
+	
+	
 	
 	return this.each(function(){
 		var headerRow;
@@ -579,22 +584,22 @@ jQuery.fn.sortTableColumn=function(index,direction,sortKeyFunction,sortFunction)
 			}
 			
 			
-			if ( cellText.match(/^\d\d[\/-]\d\d[\/-]\d\d\d\djQuery/) ){
+			if ( cellText.match(/^\d\d[\/-]\d\d[\/-]\d\d\d\d$/) ){
 					
 					sortKeyFunc=dataType_date;
 					jQuery(headerRow).children().eq(index).removeClass('dataType_alpha').addClass('dataType_date');
 			}
-			if ( cellText.match(/^\d\d[\/-]\d\d[\/-]\d\djQuery/) ){
+			if ( cellText.match(/^\d\d[\/-]\d\d[\/-]\d\d$/) ){
 				
 					sortKeyFunc=dataType_date;
 					jQuery(headerRow).children().eq(index).removeClass('dataType_alpha').addClass('dataType_date');
 			}
-			if ( cellText.match(/^[£jQuery]/) ){
+			if ( cellText.match(/^[£$]/) ){
 			
 				sortKeyFunc=dataType_numeric;
 				jQuery(headerRow).children().eq(index).removeClass('dataType_alpha').addClass('dataType_numeric');
 			}
-			if ( cellText.match(/^[\d\.]+jQuery/) ){
+			if ( cellText.match(/^[\d\.]+$/) ){
 				
 				sortKeyFunc=dataType_numeric;
 				jQuery(headerRow).children().eq(index).removeClass('dataType_alpha').addClass('dataType_numeric');
@@ -672,6 +677,10 @@ jQuery.fn.sortTableColumn=function(index,direction,sortKeyFunction,sortFunction)
 
 	jQuery(table).alternateRowColors();
 	jQuery(primaryHeaderLink).setSortArrow(primaryDirection);
+
+
+	
+	if(typeof sortTableCallBack!="undefined") sortTableCallBack({"index":index,"direction":direction}); 
 
 	return this;
 };
