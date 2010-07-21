@@ -1,8 +1,8 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.1
-// Date: 4/8/2010
+// Version 1.1.0
+// Date: 07/21/2010
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
@@ -51,6 +51,8 @@
 // .sortedCol - Class applied to the table cells of the column that was sorted on.
 
 // .sortHeader - Class applied to all header links
+
+// .sortLinkText - Class applied to a span tag around the actual text of the header link.
 
 // .sortArrow - Class applied to the span tag located inside the header link that contains the arrow.
 
@@ -415,5 +417,14 @@ If there are multiple tbody or misplaced tbody tags - the sort creates a new set
 
 */
 /////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////// NEW TO THIS VERSION 1.1 /////////////////////////////////
+//  Addition of a call-back function - note this has barely tested
+
+//  Addition of span around the link text.  This allows for greater styling control.
+
+
 
 

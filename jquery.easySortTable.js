@@ -2,8 +2,8 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.1
-// Date: 4/8/2010
+// Version 1.1.0
+// Date: 07/21/2010
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
@@ -24,6 +24,7 @@ var sortTableVars=new Object();
 
 	sortTableVars.noSortClass='noSort'; //Class applied to a header cell if that column should not be sortable
 	sortTableVars.sortHeaderClass='sortHeader'; //Class applied to the header cell link
+	sortTableVars.sortLinkTextClass='sortLinkText';  //Class applied to the sort link text
 	sortTableVars.headerLinkTitle="Sort this column"; //The title of the header sort link
 	sortTableVars.alreadySortedAscendingClass='sortedAscending';//Class applied to the header cell of a column that is already sorted ascending on page load
 	sortTableVars.alreadySortedDescendingClass='sortedDescending';//Class applied to the header cell of a column that is already sorted descending on page load
@@ -157,7 +158,7 @@ jQuery.fn.setSortLink=function(index,direction){
 				displayBlock=false;
 			}
 			
-			jQuery(headerLink).wrapInner('<a href="javascript:void(0)"></a>');
+			jQuery(headerLink).wrapInner('<a href="javascript:void(0)"><span class="'+sortTableVars.sortLinkTextClass+'"></span></a>');
 			var jQuerya=jQuery(headerLink).find('a:first');
 			jQuerya.attr('title',sortTableVars.headerLinkTitle).addClass(sortTableVars.sortHeaderClass);
 
