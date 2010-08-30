@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+
+<script type="text/javascript" src="jquery.easySortTable.js"></script>
+<style type="text/css">
+	.odd{background-color:#ccc;}
+	.sortedCol{background-color:#FFCCFF;}
+.hidden {display:none;}
+
+h2{ border-top:1px solid #999;
+margin-top:75px;
+
+}
+
+
+
+body{
+		font-family:Verdana, Geneva, sans-serif;
+		font-size:90%;
+		margin-left:20px;
+}
+
+table{
+		border-collapse:collapse;
+}
+
+th, td{
+	padding:5px;
+	border:1px solid #999;
+}
+
+
+</style>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('table').easySortTable();
+});
+</script>
+</head>
+
+<body>
+<h1>Examples for the jquery.easySortTable.js file</h1>
+
+
+<h2> Example 1 - Simple Table</h2>
+<table id="table1">
+
+   <tr>
+    <td>Name</td>
+    <td>Bonus</td>
+    <td> Extension</td>
+    <td>Start date</td>
+  </tr>
+  
+
+  <tr>
+    <td>Bloggs, Fred</td>
+    <td>$12.00</td>
+    <td>1353</td>
+    <td>08/18/2003</td>
+  </tr>
+  <tr>
+    <td>Turvey, Kevin</td>
+    <td>$191.00</td>
+    <td>&nbsp;&nbsp;&nbsp;2342</td>
+    <td>&nbsp;&nbsp;02/05/1979</td>
+  </tr>
+
+  <tr>
+    <td>Fitz, Aaron</td>
+    <td>$3.30</td>
+    <td>5554</td>
+    <td>&nbsp;</td>
+  </tr>
+ 
+</table>
+<h2>Example 2 - Simple Table with THead</h2>
+<table id="table2">
+	<thead>
+	<tr>
+		<th>Name</th>
+		<th>Bonus</th>
+		<th> Extension</th>
+		<th>Start date</th>
+	</tr>
+	<tr>
+		<th>Name</th>
+		<th>Bonus</th>
+		<th> Extension</th>
+		<th>Start date</th>
+	</tr>
+	</thead>
+	<tr>
+		<td>Bloggs, Fred</td>
+		<td>$12.00</td>
+		<td>1353</td>
+		<td>08/18/2003</td>
+	</tr>
+	<tr>
+		<td>Turvey, Kevin</td>
+		<td>$191.00</td>
+		<td>&nbsp;&nbsp;&nbsp;2342</td>
+		<td>&nbsp;&nbsp;02/05/1979</td>
+	</tr>
+	<tr>
+		<td>Fitz, Aaron</td>
+		<td>$3.30</td>
+		<td>5554</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<h2>Example 3 - Table with sortHeadRow class</h2>
+<table id="table3">
+	
+	<tr>
+		<td>Bloggs, Fred</td>
+		<td>$12.00</td>
+		<td>1353</td>
+		<td>08/18/2003</td>
+	</tr>
+	<tr>
+		<td>Turvey, Kevin</td>
+		<td>$191.00</td>
+		<td>&nbsp;&nbsp;&nbsp;2342</td>
+		<td>&nbsp;&nbsp;02/05/1979</td>
+	</tr>
+	<tr>
+		<td>Fitz, Aaron</td>
+		<td>$3.30</td>
+		<td>5554</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr class="sortHeaderRow">
+			<th>Name</th>
+			<th>Bonus</th>
+			<th> Extension</th>
+			<th>Start date</th>
+	</tr>
+</table>
+<h2>Example 4 - Custom Header Links</h2>
+<table>
+	<thead>
+		<tr>
+			<th><span class="sortHeader">Name</span> This is not part of the link</th>
+			<th class="noSort">Bonus</th>
+			<th class="sortedAscending"> Extension</th>
+			<th class="sortedDescending">Start date</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Bloggs, Fred</td>
+		<td>$12.00</td>
+		<td>1353</td>
+		<td>08/18/2003</td>
+	</tr>
+	<tr>
+		<td>Turvey, Kevin</td>
+		<td>$191.00</td>
+		<td>&nbsp;&nbsp;&nbsp;2342</td>
+		<td>&nbsp;&nbsp;02/05/1979</td>
+	</tr>
+	<tr>
+		<td>Fitz, Aaron</td>
+		<td>$3.30</td>
+		<td>5554</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

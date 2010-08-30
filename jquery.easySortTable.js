@@ -2,8 +2,8 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.1.0
-// Date: 07/21/2010
+// Version 1.1.1 - beta
+// Date: 08/30/2010
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
