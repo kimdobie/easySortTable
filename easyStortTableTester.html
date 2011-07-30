@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Untitled Document</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
 
 <script type="text/javascript" src="jquery.easySortTable.js"></script>
 <style type="text/css">
@@ -54,7 +54,7 @@ $(document).ready(function(){
    <tr>
     <td>Name</td>
     <td>Bonus</td>
-    <td> Extension</td>
+    <td>Extension</td>
     <td>Start date</td>
   </tr>
   
@@ -68,15 +68,15 @@ $(document).ready(function(){
   <tr>
     <td>Turvey, Kevin</td>
     <td>$191.00</td>
-    <td>&nbsp;&nbsp;&nbsp;2342</td>
-    <td>&nbsp;&nbsp;02/05/1979</td>
+    <td>2342</td>
+    <td>02/05/1979</td>
   </tr>
 
   <tr>
     <td>Fitz, Aaron</td>
     <td>$3.30</td>
     <td>5554</td>
-    <td>&nbsp;</td>
+    <td>10/25/1978</td>
   </tr>
  
 </table>
@@ -88,30 +88,35 @@ $(document).ready(function(){
 		<th>Bonus</th>
 		<th> Extension</th>
 		<th>Start date</th>
+		<th>Team</th>
 	</tr>
 	<tr>
 		<th>Name</th>
 		<th>Bonus</th>
 		<th> Extension</th>
 		<th>Start date</th>
+		<th>Team</th>
 	</tr>
 	</thead>
 	<tr>
 		<td>Bloggs, Fred</td>
-		<td>$12.00</td>
+		<td></td>
 		<td>1353</td>
 		<td>08/18/2003</td>
+		<td>Red</td>
 	</tr>
 	<tr>
 		<td>Turvey, Kevin</td>
 		<td>$191.00</td>
 		<td>&nbsp;&nbsp;&nbsp;2342</td>
 		<td>&nbsp;&nbsp;02/05/1979</td>
+		<td>Orange</td>
 	</tr>
 	<tr>
-		<td>Fitz, Aaron</td>
+		<td> Fitz, Aaron</td>
 		<td>$3.30</td>
 		<td>5554</td>
+		<td>  </td>
 		<td>&nbsp;</td>
 	</tr>
 </table>
@@ -119,32 +124,76 @@ $(document).ready(function(){
 <table id="table3">
 	
 	<tr>
-		<td>Bloggs, Fred</td>
+		<td>Fred <span class="sortKey">Bloggs</span></td>
 		<td>$12.00</td>
 		<td>1353</td>
 		<td>08/18/2003</td>
+		<td>Red</td>
 	</tr>
 	<tr>
-		<td>Turvey, Kevin</td>
+		<td>Kevin <span class="sortKey">Turvey</span></td>
 		<td>$191.00</td>
 		<td>&nbsp;&nbsp;&nbsp;2342</td>
 		<td>&nbsp;&nbsp;02/05/1979</td>
+		<td>Orange</td>
 	</tr>
 	<tr>
-		<td>Fitz, Aaron</td>
+		<td>Grace <span class="sortKey">Hopper</span></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Yellow</td>
+	</tr>
+	<tr>
+		<td>Marie <span class="sortKey">Curie</span></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Green</td>
+	</tr>
+	<tr>
+		<td>Lise <span class="sortKey">Meitner</span></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Blue</td>
+	</tr>
+	<tr>
+		<td>Aaron <span class="sortKey">Fitz</span></td>
 		<td>$3.30</td>
 		<td>5554</td>
 		<td>&nbsp;</td>
+		<td>Violet</td>
 	</tr>
 	<tr class="sortHeaderRow">
 			<th>Name</th>
 			<th>Bonus</th>
 			<th> Extension</th>
 			<th>Start date</th>
+			<th class="dataType_team">Team</th>
 	</tr>
 </table>
+
+
+<script type="text/javascript">
+	function dataType_team($cell){
+		if($cell.text()=="Red") return 1;
+		if($cell.text()=="Orange") return 2;
+		if($cell.text()=="Yellow") return 3;
+		if($cell.text()=="Green") return 4;
+		if($cell.text()=="Blue") return 5;
+		if($cell.text()=="Violet") return 6;
+		
+		
+	}
+
+
+</script>
+
+
+
 <h2>Example 4 - Custom Header Links</h2>
-<table>
+<table id="table4">
 	<thead>
 		<tr>
 			<th><span class="sortHeader">Name</span> This is not part of the link</th>
@@ -172,7 +221,44 @@ $(document).ready(function(){
 		<td>&nbsp;</td>
 	</tr>
 </table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<h2>Example 5 - Javascript to sort</h2>
+<table id="table5"><thead><tr>
+      <td>Class</td>
+      <td>Date Offered (month)</td>
+    </tr></thead>
+  <tbody>
+    
+    <tr>
+      <td>HTML I </td>
+      <td>2 - Feb.</td>
+    </tr>
+    <tr>
+      <td>HTML I</td>
+      <td>1- Jan.</td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>1 - Jan.</td>
+    </tr>
+    <tr>
+      <td>Dreamweaver I </td>
+      <td>3 - March</td>
+    </tr>
+    <tr>
+      <td>Javascript I </td>
+      <td>2 - Feb. </td>
+    </tr>
+    <tr>
+      <td>Javascript I</td>
+      <td>3 - March</td>
+    </tr>
+  </tbody>
+</table>
+<p><a onclick="$('#table5').sortTableColumn(0,1)" href="javascript:void(0)" id="table5Link1">1. Sort Class (Always Ascending)</a></p>
+<p><a onclick="$('#table5').sortTableColumn(0,-1)" href="javascript:void(0)"  id="table5Link2">2. Sort Class (Always Descending)</a></p>
+<p><a onclick="$('#table5').sortTableColumn(0,0)" href="javascript:void(0)"  id="table5Link3">3. Sort Class (Switch)</a></p>
+
+
+
 </body>
 </html>

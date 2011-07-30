@@ -2,13 +2,13 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.1.1 - beta
-// Date: 08/30/2010
+// Version 1.1.1 
+// Date: 07/29/2011
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
 
-// NOTE: These functions require the jQuery library.  It was created using version 1.2.6 and tested using 1.4.2
+// NOTE: These functions require the jQuery library.  It was created using version 1.2.6 and tested using 1.4.2, 1.6.2
 // You can downloaded jQuery at: http://jquery.com/
 ////////////////////////////////////////////////////////////////////////////
 
@@ -696,7 +696,7 @@ jQuery.fn.sortCheckForClass=function(regExp){
 	
 		var classes=new Array();
 		var regExp=new RegExp(regExp);
-		
+		if(jQuery(this).attr('class')==undefined)return "";
 		
 		classes=jQuery(this).attr('class').split(' ');
 		for(var i=0;i<classes.length;i++){

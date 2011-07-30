@@ -1,13 +1,13 @@
 ////////////////////////////////INFO////////////////////////////////////////
 // This library was created by Kim Doberstein
 
-// Version 1.1.1 - beta
-// Date: 08/30/2010
+// Version 1.1.1
+// Date: 07/29/2011
 //
 // This set of jQuery-based plug-ins will turn any table into sortable by clicking on the column headers.
 // In addition, it will alternate the table row background colors (zebra stripping).
 
-// NOTE: These functions require the jQuery library.  It was created using version 1.2.6 and tested using 1.4.2
+// NOTE: These functions require the jQuery library.  It was created using version 1.2.6 and tested using 1.4.2, 1.6.2
 // You can downloaded jQuery at: http://jquery.com/
 ////////////////////////////////////////////////////////////////////////////
 
@@ -420,10 +420,9 @@ If there are multiple tbody or misplaced tbody tags - the sort creates a new set
 
 
 
-/////////////////////////// NEW TO THIS VERSION 1.1 /////////////////////////////////
-//  Addition of a call-back function - note this has barely tested
-
-//  Addition of span around the link text.  This allows for greater styling control.
+/////////////////////////// NEW TO THIS VERSION 1.1.1 /////////////////////////////////
+//  As of jQuery 1.6, the .attr() method returns undefined for attributes that have not been set. 
+This was causing an error in the sortCheckForClass function.  This has been fixed.
 
 
 
