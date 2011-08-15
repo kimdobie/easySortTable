@@ -131,6 +131,8 @@
 
 // * Only use th tags in the header row(s).
 
+// * Only use td tags in the tbody section or in rows that will be sorted.
+
 // * Don't use colspan or rowspan.
 
 // * If you want zebra stripping, set .even and .odd classes to have different background colors.
@@ -381,9 +383,7 @@
 
 ///////////////////////////////// KNOWN BUGS ////////////////////////
 /*
-		
-
-If there are multiple tbody or misplaced tbody tags - the sort creates a new set of rows.  For example, this code will cause the defect:
+1.  If there are multiple tbody or misplaced tbody tags - the sort creates a new set of rows.  For example, this code will cause the defect:
 
 <table>
     <tr>
@@ -413,6 +413,44 @@ If there are multiple tbody or misplaced tbody tags - the sort creates a new set
     </tr>
     </tbody>
 </table>
+
+
+*/
+
+////
+
+/*
+2.  If there are th tags in the tbody section, or in a sortable row, it will cause unexpected results including causing the browser to "hang".  For example the following will cause the defect:
+
+<table>
+	<thead>
+	<tr>
+		<th scope="col">Contr.hours </th>
+		<th scope="col">Class</th>
+		<th scope="col">Comp</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th>0.8</th>
+		<th>ARTS 5110 002-1</th>
+		<td>STU</td>
+
+	</tr>
+	<tr>
+		<th>0.3</th>
+		<th>ARTS 5110 002-2</th>
+		<td>STU</td>
+		
+	</tr>
+	<tr>
+		<th>1.0</th>
+		<th>AFRO 1012 001-1</th>
+		<td>LEC</td>
+	</tr>
+	</tbody>
+</table>
+
 
 
 */
